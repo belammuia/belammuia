@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 56" width="1000" height="56" role="img" aria-label="heartbeat divider">
+<defs>
+  <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".2" stop-color="#fff"/><stop offset=".8" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="56"><rect width="1000" height="56" fill="url(#fade)"/></mask>
+</defs>
+<g mask="url(#m)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M0 28 H400 L420 28 L428 20 L436 28 L452 28 L460 4 L472 52 L484 14 L492 28 L512 28 L522 22 L532 28 H1000" pathLength="1000" stroke="#1e3a4f" stroke-width="2"/>
+  <path d="M0 28 H400 L420 28 L428 20 L436 28 L452 28 L460 4 L472 52 L484 14 L492 28 L512 28 L522 22 L532 28 H1000" pathLength="1000" stroke="#5eead4" stroke-width="2.4" stroke-dasharray="110 890">
+    <animate attributeName="stroke-dashoffset" values="110;-890" dur="3.2s" repeatCount="indefinite"/>
+  </path>
+</g>
+</svg>

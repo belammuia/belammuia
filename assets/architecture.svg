@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 490" width="1000" height="490" role="img" aria-labelledby="t d">
+<title id="t">task-queue-system request lifecycle</title>
+<desc id="d">Animated flow: a client request passes the idempotency check, is queued in Redis and picked up by workers; a retry with the same key gets the saved response from the cache.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1730"/><stop offset="1" stop-color="#0a1220"/></linearGradient>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#5eead4" stroke-opacity=".045"/></pattern>
+  <clipPath id="card"><rect width="1000" height="490" rx="20"/></clipPath>
+</defs>
+<g clip-path="url(#card)">
+  <rect width="1000" height="490" fill="url(#bg)"/>
+  <rect width="1000" height="490" fill="url(#grid)"/>
+
+  <text x="36" y="44" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">what happens when a client retries</text>
+  <text x="36" y="66" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="12" fill="#64748b">task-queue-system request lifecycle</text>
+
+  <path d="M150,270 H215" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M150,270 H215" fill="none" stroke="#5eead4" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M385,270 H450" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M385,270 H450" fill="none" stroke="#5eead4" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M570,270 H628" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M570,270 H628" fill="none" stroke="#5eead4" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M760,270 H800" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M760,270 H800" fill="none" stroke="#5eead4" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M777,140 V400" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M777,140 V400" fill="none" stroke="#5eead4" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M777,140 H800" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M777,140 H800" fill="none" stroke="#5eead4" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M777,400 H800" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M777,400 H800" fill="none" stroke="#5eead4" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M300,235 V168" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M300,235 V168" fill="none" stroke="#fbbf24" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+<path d="M225,140 H90 V240" fill="none" stroke="#1e3a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M225,140 H90 V240" fill="none" stroke="#fbbf24" stroke-opacity=".5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 10"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="1s" repeatCount="indefinite"/></path>
+
+  <!-- annotations -->
+  <text x="36" y="98" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#fbbf24">yes: replay the saved response,</text>
+  <text x="36" y="113" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#fbbf24">no duplicate work</text>
+  <text x="309" y="208" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="12" fill="#fbbf24">yes</text>
+  <text x="402" y="262" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="12" fill="#5eead4">no</text>
+  <text x="30" y="324" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">POST /tasks</text>
+  <text x="30" y="340" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">Idempotency-Key</text>
+  <text x="800" y="102" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">celery workers</text>
+
+  <g opacity="0">
+  <circle r="12" fill="#5eead4" opacity=".22"/><circle r="5.5" fill="#5eead4"/>
+  <animateMotion path="M110,270 H777 V140 H850" dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0;0.28;1"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0;0.01;0.27;0.28;1" dur="12s" repeatCount="indefinite"/>
+</g>
+<g opacity="0">
+  <circle r="12" fill="#fbbf24" opacity=".22"/><circle r="5.5" fill="#fbbf24"/>
+  <animateMotion path="M110,270 H300 V140 H90 V268" dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.3;0.52;1"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.31;0.51;0.52;1" dur="12s" repeatCount="indefinite"/>
+</g>
+<g opacity="0">
+  <circle r="12" fill="#5eead4" opacity=".22"/><circle r="5.5" fill="#5eead4"/>
+  <animateMotion path="M110,270 H850" dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.42;0.7;1"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.42;0.43;0.69;0.7;1" dur="12s" repeatCount="indefinite"/>
+</g>
+<g opacity="0">
+  <circle r="12" fill="#5eead4" opacity=".22"/><circle r="5.5" fill="#5eead4"/>
+  <animateMotion path="M110,270 H777 V400 H850" dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.62;0.9;1"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.62;0.63;0.89;0.9;1" dur="12s" repeatCount="indefinite"/>
+</g>
+  <g>
+  <rect x="30" y="240" width="120" height="60" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="30.75" y="252" width="4" height="36" rx="2" fill="#94a3b8"/>
+  <text x="50" y="268.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">client</text>
+  <text x="50" y="286.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">retries</text>
+</g>
+<g>
+  <rect x="215" y="235" width="170" height="70" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="215.75" y="247" width="4" height="46" rx="2" fill="#fbbf24"/>
+  <text x="235" y="268.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">idempotency</text>
+  <text x="235" y="286.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">seen this key?</text>
+</g>
+<g>
+  <rect x="225" y="112" width="150" height="56" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="225.75" y="124" width="4" height="32" rx="2" fill="#f87171"/>
+  <text x="245" y="138.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">redis cache</text>
+  <text x="245" y="156.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">key: saved response</text>
+</g>
+<g>
+  <rect x="450" y="240" width="120" height="60" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="450.75" y="252" width="4" height="36" rx="2" fill="#34d399"/>
+  <text x="470" y="268.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">DRF view</text>
+  <text x="470" y="286.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">returns 202</text>
+</g>
+<g>
+  <rect x="628" y="240" width="132" height="60" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="628.75" y="252" width="4" height="36" rx="2" fill="#f87171"/>
+  <text x="648" y="268.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">redis broker</text>
+  <text x="648" y="286.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">task queue</text>
+</g>
+<g>
+  <rect x="800" y="112" width="170" height="56" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="800.75" y="124" width="4" height="32" rx="2" fill="#5eead4"/>
+  <text x="820" y="138.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">image resizing</text>
+  <text x="820" y="156.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">PIL worker</text>
+</g>
+<g>
+  <rect x="800" y="242" width="170" height="56" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="800.75" y="254" width="4" height="32" rx="2" fill="#5eead4"/>
+  <text x="820" y="268.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">email delivery</text>
+  <text x="820" y="286.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">background worker</text>
+</g>
+<g>
+  <rect x="800" y="372" width="170" height="56" rx="12" fill="#0f1b2d" stroke="#1e3a4f" stroke-width="1.5"/>
+  <rect x="800.75" y="384" width="4" height="32" rx="2" fill="#5eead4"/>
+  <text x="820" y="398.0" font-family="'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="700" fill="#e2e8f0">data exports</text>
+  <text x="820" y="416.0" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">background worker</text>
+</g>
+  <g opacity="0">
+  <rect x="800" y="112" width="170" height="56" rx="12" fill="#5eead4" fill-opacity=".10" stroke="#5eead4" stroke-width="1.6"/>
+  <path d="M938 140.0 L942.5 145.0 L950.5 135.0" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.275;0.28;0.37;0.38;1" dur="12s" repeatCount="indefinite"/>
+</g>
+<g opacity="0">
+  <rect x="800" y="242" width="170" height="56" rx="12" fill="#5eead4" fill-opacity=".10" stroke="#5eead4" stroke-width="1.6"/>
+  <path d="M938 270.0 L942.5 275.0 L950.5 265.0" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.695;0.7;0.79;0.8;1" dur="12s" repeatCount="indefinite"/>
+</g>
+<g opacity="0">
+  <rect x="800" y="372" width="170" height="56" rx="12" fill="#5eead4" fill-opacity=".10" stroke="#5eead4" stroke-width="1.6"/>
+  <path d="M938 400.0 L942.5 405.0 L950.5 395.0" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.895;0.9;0.99;1;1" dur="12s" repeatCount="indefinite"/>
+</g>
+
+  <!-- legend -->
+  <circle cx="44" cy="466" r="5.5" fill="#5eead4"/><text x="58" y="470" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="12" fill="#94a3b8">new request, processed once</text>
+  <circle cx="300" cy="466" r="5.5" fill="#fbbf24"/><text x="314" y="470" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="12" fill="#94a3b8">retry with the same key, replayed</text>
+  <text x="964" y="470" text-anchor="end" font-family="'JetBrains Mono','Fira Code','SF Mono',Menlo,Consolas,'Liberation Mono','DejaVu Sans Mono',monospace" font-size="11" fill="#64748b">simplified view</text>
+</g>
+<rect x=".5" y=".5" width="999" height="489" rx="20" fill="none" stroke="#1e3a4f"/>
+</svg>
